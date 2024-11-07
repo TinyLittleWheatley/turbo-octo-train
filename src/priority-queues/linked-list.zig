@@ -82,6 +82,10 @@ fn LinkedListPriorityQueue(comptime allocator: std.mem.Allocator, comptime T: ty
 
             n.* = other.first;
         }
+
+        pub fn is_empty(self: Self) bool {
+            return bool(self.first);
+        }
     };
 }
 
