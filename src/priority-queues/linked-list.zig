@@ -73,6 +73,15 @@ fn LinkedListPriorityQueue(comptime allocator: std.mem.Allocator, comptime T: ty
                 allocator.destroy(node);
             }
         }
+
+        pub fn merge(self: *Self, other: Self) void {
+            var n = &self.first;
+            while (n.*) |node| {
+                n = &node.next;
+            }
+
+            n.* = other.first;
+        }
     };
 }
 
@@ -84,6 +93,12 @@ test "manual test" {
     defer ll.clear();
 
     try std.testing.expectEqual(4, ll.min());
+
+    const ostart: [1]u32 = [_]u32{3};
+    const oll = try LinkedListPriorityQueue(allocator, u32).init(&ostart);
+    ll.merge(oll);
+    try std.testing.expectEqual(3, ll.min());
+
     try ll.insert(2);
     try std.testing.expectEqual(2, ll.min());
     try ll.insert(3);
