@@ -33,7 +33,7 @@ fn LinkedListPriorityQueue(comptime allocator: std.mem.Allocator, comptime T: ty
             self.first = node;
         }
 
-        pub fn min(self: *const Self) !T {
+        pub fn min(self: Self) !T {
             var n = if (self.first) |first| first else return PQError.EmptyQueue;
             var min_val = n.value;
             while (n.next) |next| {
